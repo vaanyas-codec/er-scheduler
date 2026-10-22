@@ -2,7 +2,8 @@
 main.py  -  command-line runner (for trying the backend WITHOUT a GUI).
 ==============================================================================
 Usage (type these in a terminal, in this folder):
-  python3 main.py                  run the 4 built-in scheduling tests + all demos
+  python3 main.py                  launch the Tkinter ER Scheduler UI
+  python3 main.py all              run the 4 built-in scheduling tests + all demos
   python3 main.py sim 1            just test case 1 (use 1, 2, 3 or 4)
   python3 main.py banker           Banker's algorithm demo
   python3 main.py intake           producer-consumer demo
@@ -99,7 +100,11 @@ def show(title, result):
 
 def main(argv):
     """Look at the command-line words and decide what to run."""
-    cmd = argv[1] if len(argv) > 1 else "all"      # no argument = everything
+    if len(argv) == 1:
+        import ui
+        ui.run()
+        return
+    cmd = argv[1]
     if cmd == "all":
         for k in range(len(SCENARIOS)):
             run_scenario(k)
